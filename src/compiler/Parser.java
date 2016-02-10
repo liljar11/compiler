@@ -20,6 +20,10 @@ public class Parser {
 	
 	void Statements(){
 		
+		if(nextToken == TokenCode.END){
+			nextToken = lexer.nextToken();
+		}
+		
 		Statement();
 		if(nextToken == TokenCode.SEMICOL)
 		{
@@ -27,16 +31,25 @@ public class Parser {
 			Statements();
 		}
 		
+		
 	}
 	
 	void Statement(){
 		if(nextToken == TokenCode.ID){
 			nextToken = lexer.nextToken();
 			if(nextToken == TokenCode.ASSIGN){
-				
+				nextToken = lexer.nextToken();{
+					Expr();
+				}
 			}
 		}
-		
+		else if(nextToken == TokenCode.PRINT){
+			nextToken = lexer.nextToken();
+			if(nextToken == TokenCode.ID){
+				nextToken = lexer.nextToken();
+				Statements();
+			}
+		}
 	}
 	
 	void Expr(){
@@ -58,11 +71,27 @@ public class Parser {
 			nextToken = lexer.nextToken();
 			Term();
 		}
+		Statements();
 		
 	}
 	
 	void Factor(){
-		
+		if(nextToken == TokenCode.INT)
+		{
+			nextToken = lexer.nextToken();
+		}
+		if(nextToken == TokenCode.ID)
+		{
+			nextToken = lexer.nextToken();
+		}
+		if(nextToken == TokenCode.LPAREN){
+			nextToken = lexer.nextToken();
+			Expr();
+			if(nextToken == TokenCode.RPAREN)
+			{
+				nextToken = lexer.nextToken();
+			}
+		}
 		
 		
 	}
