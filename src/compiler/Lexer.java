@@ -6,10 +6,8 @@ import java.util.regex.Pattern;
 
 public class Lexer {
 	String in;
-	
 	String input = null; 
 	Scanner sc = new Scanner(System.in);
-	int counter = 0;
 	Token token = new Token();
 	String regexInt = "[0-9]+";
 	String regexChar = "[A-Za-z]+";
@@ -26,33 +24,34 @@ public class Lexer {
 	}
 	else if(sc.hasNext(Pattern.compile(regexChar))){
 		token.tCode = Token.TokenCode.ID;
+		
 
 	}
-	else if(sc.hasNext("+"))
+	else if(sc.hasNext("\\+"))
 	{
 		token.tCode = Token.TokenCode.ADD;
 	}
-	else if(sc.hasNext("-"))
+	else if(sc.hasNext("\\-"))
 	{
 		token.tCode = Token.TokenCode.SUB;
 	}
-	else if(sc.hasNext("*"))
+	else if(sc.hasNext("\\*"))
 	{
 		token.tCode = Token.TokenCode.MULT;
 	}
-	else if(sc.hasNext("="))
+	else if(sc.hasNext("\\="))
 	{
 		token.tCode = Token.TokenCode.ASSIGN;
 	}
-	else if(sc.hasNext("("))
+	else if(sc.hasNext("\\("))
 	{
 		token.tCode = Token.TokenCode.LPAREN;
 	}
-	else if(sc.hasNext(")"))
+	else if(sc.hasNext("\\)"))
 	{
 		token.tCode = Token.TokenCode.RPAREN;
 	}
-	else if(sc.hasNext(";"))
+	else if(sc.hasNext("\\;"))
 	{
 		token.tCode = Token.TokenCode.SEMICOL;
 	}
@@ -68,6 +67,7 @@ public class Lexer {
 		token.tCode = Token.TokenCode.ERROR;
 	}
 }
+//	token.lexeme = sc.nextLine();
 		return token;
 	
 			

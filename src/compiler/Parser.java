@@ -41,10 +41,9 @@ public class Parser {
 	
 	void Statement(){
 		if(nextToken.tCode == Token.TokenCode.ID){
-			System.out.println(nextToken);
 			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lexer.nextToken();
-			System.out.println(nextToken);
+	
 				if(nextToken.tCode == Token.TokenCode.ASSIGN){
 					
 					nextToken = lexer.nextToken();{
@@ -54,7 +53,6 @@ public class Parser {
 				} 
 			}
 				else {
-					System.out.println("jee");
 					Error();
 					}
 		}
