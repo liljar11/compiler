@@ -1,18 +1,14 @@
 package compiler;
 
-import compiler.Token.TokenCode;
-
 public class Parser {
 	
-	private TokenCode nextToken = null;
+	private Token nextToken = null;
 	private Lexer lexer = null;
 	
 	
 	public Parser(Lexer myLexer) {
-		nextToken = lexer.nextToken();
-		//parse();
-		
-		// TODO Auto-generated constructor stub
+		lexer = myLexer;
+
 	}
 	
 	public void parse() {
@@ -24,19 +20,19 @@ public class Parser {
 	
 	void Statements(){
 		
-		if(nextToken == TokenCode.END){
+		if(nextToken.tCode == Token.TokenCode.END){
 			return;
 		}
 		
-		else if(nextToken == TokenCode.ERROR)
+		else if(nextToken.tCode == Token.TokenCode.ERROR)
 		{
 			Error();
-			//viljum síðan pottþétt exita
+			//vilju exita
 		}
 	
 		else{
 			Statement();
-			//óþarfi að hafa semíkommu compaire 
+			//otharfi a hafa semikommu compaire 
 			Statements();
 	
 		}
@@ -44,23 +40,28 @@ public class Parser {
 	}
 	
 	void Statement(){
-		if(nextToken == TokenCode.ID){
-			System.out.println("PUSH " + lexer.nextToken());
+		if(nextToken.tCode == Token.TokenCode.ID){
+			System.out.println(nextToken);
+			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lexer.nextToken();
-				if(nextToken == TokenCode.ASSIGN){
+			System.out.println(nextToken);
+				if(nextToken.tCode == Token.TokenCode.ASSIGN){
+					
 					nextToken = lexer.nextToken();{
+	
 					Expr();
 					System.out.println("ASSIGN");
 				} 
 			}
 				else {
+					System.out.println("jee");
 					Error();
 					}
 		}
-		else if(nextToken == TokenCode.PRINT){
+		else if(nextToken.tCode == Token.TokenCode.PRINT){
 			nextToken = lexer.nextToken();
-					if(nextToken == TokenCode.ID){
-						System.out.println("PUSH " + lexer.nextToken());
+					if(nextToken.tCode == Token.TokenCode.ID){
+						System.out.println("PUSH " + nextToken.lexeme);
 						System.out.println("PRINT");
 						nextToken = lexer.nextToken();
 			}
@@ -72,12 +73,12 @@ public class Parser {
 	
 	void Expr(){
 		Term();
-			if (nextToken == TokenCode.ADD){
+			if (nextToken.tCode == Token.TokenCode.ADD){
 					nextToken = lexer.nextToken();
 					Expr();
 					System.out.println("ADD");
 			}
-			if (nextToken == TokenCode.SUB){
+			if (nextToken.tCode == Token.TokenCode.SUB){
 				nextToken = lexer.nextToken();
 				Expr();
 				System.out.println("SUB");
@@ -87,7 +88,7 @@ public class Parser {
 	
 	void Term() {
 		Factor();
-		if(nextToken == TokenCode.MULT)
+		if(nextToken.tCode == Token.TokenCode.MULT)
 		{
 			nextToken = lexer.nextToken();
 			Term();
@@ -99,20 +100,20 @@ public class Parser {
 	}
 	
 	void Factor(){
-		if(nextToken == TokenCode.INT)
+		if(nextToken.tCode == Token.TokenCode.INT)
 		{
-			System.out.println("PUSH " + lexer.nextToken());
+			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lexer.nextToken();
 		}
-		if(nextToken == TokenCode.ID)
+		if(nextToken.tCode == Token.TokenCode.ID)
 		{
-			System.out.println("PUSH " + lexer.nextToken());
+			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lexer.nextToken();
 		}
-		if(nextToken == TokenCode.LPAREN){
+		if(nextToken.tCode == Token.TokenCode.LPAREN){
 			nextToken = lexer.nextToken();
 			Expr();
-				if(nextToken == TokenCode.RPAREN)
+				if(nextToken.tCode == Token.TokenCode.RPAREN)
 				{
 					nextToken = lexer.nextToken();
 				} else {

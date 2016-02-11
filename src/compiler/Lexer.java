@@ -1,55 +1,81 @@
 package compiler;
 
-import compiler.Token.TokenCode;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Lexer {
+	String in;
 	
-	String input = ""; 
-	Scanner sc;
+	String input = null; 
+	Scanner sc = new Scanner(System.in);
 	int counter = 0;
+	Token token = new Token();
+	String regexInt = "[0-9]+";
+	String regexChar = "[A-Za-z]+";
 
-	
-	Lexer()
+	public Token nextToken() {
+		
+		//whilelykkja scanner.hasnext()
+		//ifsettningar t um allt
+		if(sc.hasNext()){
+
+	if(sc.hasNext(Pattern.compile(regexInt))){
+		token.tCode = Token.TokenCode.INT;
+		
+	}
+	else if(sc.hasNext(Pattern.compile(regexChar))){
+		token.tCode = Token.TokenCode.ID;
+
+	}
+	else if(sc.hasNext("+"))
 	{
-	
-		sc = new Scanner(System.in);
-		input = sc.nextLine();
-		
+		token.tCode = Token.TokenCode.ADD;
 	}
-	
-	public Token nextToken(){
-		
-		
-		if(){
-		
-		
+	else if(sc.hasNext("-"))
+	{
+		token.tCode = Token.TokenCode.SUB;
 	}
-	
-		
-		
+	else if(sc.hasNext("*"))
+	{
+		token.tCode = Token.TokenCode.MULT;
 	}
-		
-	//stringbuilder	
-		
-	/*public void stuff(){
-	if (token.matches("\\+")) return new Token(token, TokenCode.ADD);
-	else if(token.matches("\\-")) return new Token(token, TokenCode.SUB);
-	else if(token.matches("\\*")) return new Token(token, TokenCode.MULT);
-	else if(token.matches("\\(")) return new Token(token, TokenCode.LPAREN);
-	else if(token.matches("\\)")) return new Token(token, TokenCode.RPAREN);
-	else if(token.matches("\\=")) return new Token(token, TokenCode.ASSIGN);
-	else if(token.matches("\\;")) return new Token(token, TokenCode.SEMICOL);
-	else if(token.matches("print")) return new Token(token, TokenCode.PRINT);
-	else if(token.matches("end")) return new Token(token, TokenCode.END);
-	else if(token.matches("error")) return new Token(token, TokenCode.ERROR);
-	else if(token.matches("id")) return new Token(token, TokenCode.ID);
-	else if(token.matches("int")) return new Token(token, TokenCode.INT);
-	
-	//else if(to)
-	}*/
-
+	else if(sc.hasNext("="))
+	{
+		token.tCode = Token.TokenCode.ASSIGN;
+	}
+	else if(sc.hasNext("("))
+	{
+		token.tCode = Token.TokenCode.LPAREN;
+	}
+	else if(sc.hasNext(")"))
+	{
+		token.tCode = Token.TokenCode.RPAREN;
+	}
+	else if(sc.hasNext(";"))
+	{
+		token.tCode = Token.TokenCode.SEMICOL;
+	}
+	else if(sc.hasNext("end"))
+	{
+		token.tCode = Token.TokenCode.END;	
+	}
+	else if(sc.hasNext("print"))
+	{
+		token.tCode = Token.TokenCode.PRINT;
+	}
+	else{
+		token.tCode = Token.TokenCode.ERROR;
+	}
 }
+		return token;
+	
+			
+}}
+
+		
+	
+
+
+
+

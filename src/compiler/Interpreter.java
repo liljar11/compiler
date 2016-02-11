@@ -1,4 +1,4 @@
-package compiler;
+/*package compiler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,4 +37,3 @@ public class Interpreter {
 	
 //interpeter tekur vi� output fr� compiler � formatinu sem er � bls 3 � pdf
 //og notar token a�ger�irnar og skilar �tkomunni reikna�ri.
-}
