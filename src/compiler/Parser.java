@@ -36,7 +36,7 @@ public class Parser {
 	
 		else{
 			Statement();
-			//óþarfi að hafa semíkommu compaire
+			//óþarfi að hafa semíkommu compaire 
 			Statements();
 	
 		}
@@ -45,31 +45,43 @@ public class Parser {
 	
 	void Statement(){
 		if(nextToken == TokenCode.ID){
+			System.out.println("PUSH " + lexer.nextToken());
 			nextToken = lexer.nextToken();
-			if(nextToken == TokenCode.ASSIGN){
-				nextToken = lexer.nextToken();{
+				if(nextToken == TokenCode.ASSIGN){
+					nextToken = lexer.nextToken();{
 					Expr();
-				}
+					System.out.println("ASSIGN");
+				} 
 			}
+				else {
+					Error();
+					}
 		}
 		else if(nextToken == TokenCode.PRINT){
 			nextToken = lexer.nextToken();
-			if(nextToken == TokenCode.ID){
-				nextToken = lexer.nextToken();
-				Statements();
+					if(nextToken == TokenCode.ID){
+						System.out.println("PUSH " + lexer.nextToken());
+						System.out.println("PRINT");
+						nextToken = lexer.nextToken();
 			}
+					else {
+						Error();
+					}
 		}
 	}
 	
 	void Expr(){
 		Term();
-		if (nextToken == TokenCode.ADD){
-			nextToken = lexer.nextToken();
-			Expr();
-		}
-		if (nextToken == TokenCode.SUB){
-			nextToken = lexer.nextToken();
-			Expr();
+			if (nextToken == TokenCode.ADD){
+					nextToken = lexer.nextToken();
+					Expr();
+					System.out.println("ADD");
+			}
+			if (nextToken == TokenCode.SUB){
+				nextToken = lexer.nextToken();
+				Expr();
+				System.out.println("SUB");
+
 		}
 	}
 	
@@ -79,6 +91,8 @@ public class Parser {
 		{
 			nextToken = lexer.nextToken();
 			Term();
+			System.out.println("MULT");
+
 		}
 		Statements();
 		
@@ -87,23 +101,32 @@ public class Parser {
 	void Factor(){
 		if(nextToken == TokenCode.INT)
 		{
+			System.out.println("PUSH " + lexer.nextToken());
 			nextToken = lexer.nextToken();
 		}
 		if(nextToken == TokenCode.ID)
 		{
+			System.out.println("PUSH " + lexer.nextToken());
 			nextToken = lexer.nextToken();
 		}
 		if(nextToken == TokenCode.LPAREN){
 			nextToken = lexer.nextToken();
 			Expr();
-			if(nextToken == TokenCode.RPAREN)
-			{
-				nextToken = lexer.nextToken();
-			}
+				if(nextToken == TokenCode.RPAREN)
+				{
+					nextToken = lexer.nextToken();
+				} else {
+					Error();
+				}
+				}
+		else {
+			Error();
 		}
 		
 	}
 	void Error(){
+		System.out.println("Syntax error");
+		System.exit(0);
 		
 	}
 }

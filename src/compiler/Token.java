@@ -5,8 +5,8 @@ public class Token {
 		MULT, LPAREN, RPAREN, PRINT, END, ERROR }
 
 	
-	String lexeme;
-	TokenCode tCode;
+	public String lexeme;
+	public TokenCode tCode;
 
 }
 
