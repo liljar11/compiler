@@ -4,18 +4,38 @@ import compiler.Token.TokenCode;
 import java.util.Scanner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Lexer {
-	private LinkedList<String> line;
-	public TokenCode nextToken(){
-	//vantar scanner sem tekur input	
-		return TokenCode.ASSIGN;
-	}
-/*	public Token nextToken(){
-		while(line.isEmpty()){
-			this.nextLine();
-	}*/
+	
+	String input = ""; 
+	Scanner sc;
+	int counter = 0;
+
+	
+	Lexer()
+	{
+	
+		sc = new Scanner(System.in);
+		input = sc.nextLine();
 		
+	}
+	
+	public Token nextToken(){
+		
+		
+		if(){
+		
+		
+	}
+	
+		
+		
+	}
+		
+	//stringbuilder	
+		
+	/*public void stuff(){
 	if (token.matches("\\+")) return new Token(token, TokenCode.ADD);
 	else if(token.matches("\\-")) return new Token(token, TokenCode.SUB);
 	else if(token.matches("\\*")) return new Token(token, TokenCode.MULT);
@@ -30,6 +50,6 @@ public class Lexer {
 	else if(token.matches("int")) return new Token(token, TokenCode.INT);
 	
 	//else if(to)
-}
+	}*/
 
 }
