@@ -3,9 +3,7 @@ package compiler;
 import compiler.Token.TokenCode;
 import java.util.Scanner;
 
-import javax.sound.sampled.Line;
-
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Lexer {
 	private LinkedList<String> line;
@@ -17,7 +15,6 @@ public class Lexer {
 		while(line.isEmpty()){
 			this.nextLine();
 	}*/
-		String token = line.removeFirst();
 		
 	if (token.matches("\\+")) return new Token(token, TokenCode.ADD);
 	else if(token.matches("\\-")) return new Token(token, TokenCode.SUB);

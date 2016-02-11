@@ -3,8 +3,11 @@ package compiler;
 import compiler.Token.TokenCode;
 
 public class Parser {
-	TokenCode nextToken;
-	Lexer lexer;
+	
+	private TokenCode nextToken = null;
+	private Lexer lexer = null;
+	
+	
 	public Parser(Lexer myLexer) {
 		nextToken = lexer.nextToken();
 		//parse();
@@ -14,6 +17,7 @@ public class Parser {
 	
 	public void parse() {
 		
+		nextToken = lexer.nextToken();
 		Statements();
 		
 	}
@@ -21,16 +25,21 @@ public class Parser {
 	void Statements(){
 		
 		if(nextToken == TokenCode.END){
-			nextToken = lexer.nextToken();
+			return;
 		}
 		
-		Statement();
-		if(nextToken == TokenCode.SEMICOL)
+		else if(nextToken == TokenCode.ERROR)
 		{
-			nextToken = lexer.nextToken();
-			Statements();
+			Error();
+			//viljum síðan pottþétt exita
 		}
-		
+	
+		else{
+			Statement();
+			//óþarfi að hafa semíkommu compaire
+			Statements();
+	
+		}
 		
 	}
 	
@@ -93,6 +102,8 @@ public class Parser {
 			}
 		}
 		
+	}
+	void Error(){
 		
 	}
 }
